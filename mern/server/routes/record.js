@@ -1,9 +1,5 @@
-const express = require("express");
-
-// recordRoutes is an instance of the express router.
-// We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /record.
-const recordRoutes = express.Router();
+var express = require('express');
+var router = express.Router();
 
 // This will help us connect to the database
 const dbo = require("../db/conn");
@@ -12,31 +8,16 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 
-// This section will help you get a list of all the records.
-recordRoutes.get("/record", function (req, res) {
- let db_connect = dbo.getDb("hack");
- db_connect
-   .collection("post")
-   .find({})
-   .toArray(function (err, result) {
-     if (err) throw err;
-     console.log("test");
-     res.json(result);
-   });
+router.get('/', function(req, res) {
+  let db_connect = dbo.getDb("hack");
+  db_connect
+    .collection("post")
+    .find({})
+    .toArray(function (err, result) {
+      console.log("test");
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
-// This section will help you get a single record by id
-recordRoutes.route("/record/:id").get(function (req, res) {
-    let db_connect = dbo.getDb();
-    let myquery = { _id: ObjectId( req.params.id )};
-    db_connect
-        .collection("post")
-        .findOne(myquery, function (err, result) {
-          if (err) throw err;
-          res.json(result);
-        });
-});
-
-
-
-module.exports = recordRoutes;
+module.exports = router;

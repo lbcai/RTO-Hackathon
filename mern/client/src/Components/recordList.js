@@ -2,7 +2,7 @@
 export default function RecordList() {
 
   const getRecords = () => {
-    fetch(`http://localhost:9000/record`)
+    fetch("http://localhost:9000/record")
     .then((response) => {
       response.json();
     console.log(response);
@@ -24,7 +24,8 @@ export default function RecordList() {
 
     return(
       <div>
-        <button onClick={getRecords}>test</button>
+        <button onClick={getRecords}>test backend with db</button>
+        <button onClick={callAPI}>test backend</button>
       </div>
     );
 
