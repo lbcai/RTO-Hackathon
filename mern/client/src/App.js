@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import './App.css';
 import MapComponent from './Components/MapComponent';
-import { Route, Routes } from "react-router-dom";
-
 import RecordList from "./Components/recordList";
+
 
 class App extends Component{
   constructor(props) {
@@ -23,9 +22,7 @@ componentWillMount() {
 render(){
   return (
     <div className="App">
-
-      
-      <recordList />
+      <RecordList />
     </div>
   );
 }
