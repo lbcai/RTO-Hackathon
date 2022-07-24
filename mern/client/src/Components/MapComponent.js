@@ -1,5 +1,8 @@
 import { GoogleMap, LoadScript, InfoWindow } from '@react-google-maps/api';
 import React from 'react';
+import { useState, useEffect } from "react";
+import './MapComponent.css';
+import Profile from './Profile';
 
 const containerStyle = {
     width: '100vw',
@@ -11,23 +14,40 @@ const center = {
     lng: -73.9976128429272
 };
 
-const locationArray = [
-    {lat: 40.738833492365465,
-    lng: -73.9976128429272},
-    {lat: 40.7388335,
-    lng: -73.9977}
-];
-
 const divStyle = {
   background: `white`,
   border: `1px solid #ccc`,
-  padding: 15
+  width: '5vw',
+  height: '5vw',
+  overflow: 'hidden'
+}
+
+const imgStyle = {
+  width: `100%`,
+  height: `100%`
 }
 
 function MapComponent() {
+
+  const [record, setRecord] = useState([]);
+  const [profile, setProfile] = useState(false);
+  const showProfile = () => {
+    setProfile(!profile);
+  };
+
+  useEffect(() => {
+      fetch("http://localhost:9000/record")
+      .then((response) => response.json())
+      .then((data) => {return(data)})
+      .then((record) => setRecord(record));
+    }, []);
+
     return (
+      <div>
+      {profile && <Profile />}
+
         <LoadScript
-      googleMapsApiKey="AIzaSyDgP-XRNwmXcIcTbaYXO-UQBJ5IhzQAAKo"
+      googleMapsApiKey={process.env.REACT_APP_API_KEY}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -35,19 +55,21 @@ function MapComponent() {
         zoom={19}
       >
 
-    {locationArray.map((value, index) => (
+    {record.map((value, index) => (
         <InfoWindow
-        position={value}
+        position={{lat: value.lat, lng: value.lng}}
         key={index}
         >
-        <div style={divStyle}>
-            <h1>test</h1>
+        <div onClick={showProfile} style={divStyle}>
+            <img style={imgStyle} src={value.image} alt='' />
         </div>
         </InfoWindow>
     ))}
 
       </GoogleMap>
     </LoadScript>
+
+    </div>
     );
 }
 

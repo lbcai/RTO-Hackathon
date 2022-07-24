@@ -1,0 +1,10 @@
+.main-div {
+    z-index: 100;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 700px;
+    height: 100%;
+    transition: right 300ms ease-out;
+}
