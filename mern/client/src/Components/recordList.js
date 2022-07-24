@@ -3,10 +3,7 @@ export default function RecordList() {
 
   const getRecords = () => {
     fetch("http://localhost:9000/record")
-    .then((response) => {
-      response.json();
-    console.log(response);
-  })
+    .then((response) => response.json())
     .then((json) => {
         console.log(json);
     });
@@ -17,7 +14,6 @@ export default function RecordList() {
         .then(res => {
           console.log(res.text());
           console.log(res);
-
         });
 
   }

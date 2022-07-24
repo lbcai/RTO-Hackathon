@@ -14,7 +14,6 @@ router.get('/', function(req, res) {
     .collection("post")
     .find({})
     .toArray(function (err, result) {
-      console.log("test");
       if (err) throw err;
       res.json(result);
     });

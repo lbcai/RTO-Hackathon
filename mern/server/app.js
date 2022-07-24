@@ -28,6 +28,9 @@ app.use('/users', usersRouter);
 app.use("/testAPI", testAPIRouter);
 app.use("/record", recordRouter);
 
+const dbo = require("./db/conn");
+dbo.connectToServer((err) => {if (err) console.log("Failed to connect to db.")});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
